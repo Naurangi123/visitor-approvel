@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <title>Visit Requests</title>
+</head>
+<body>
+    <div class="lists">
+        <div class="list">
+            <h2>Visit Requests</h2>
+        <ul>
+            {% for request in visit_requests %}
+                <li>
+                    {{ request.visitor.name }} - Status: {{ request.status }}
+                    <button class="accept"><a href="{% url 'visitor_management:handle_request' request.id 'accept' %}">Accept</a></button>
+                    <button class="reject"><a href="{% url 'visitor_management:handle_request' request.id 'reject' %}">Reject</a></button>
+                    <button class="wait"><a href="{% url 'visitor_management:handle_request' request.id 'wait' %}">Wait</a></button>
+                </li>
+            {% empty %}
+                <li>No visit requests yet.</li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+</body>
+</html>
